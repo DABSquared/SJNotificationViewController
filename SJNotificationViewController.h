@@ -45,6 +45,9 @@ typedef enum {
 - (void)setNotificationTitle:(NSString *)t;
 - (void)setTapTarget:(id)target selector:(SEL)selector;
 
+-(void)setColor:(UIColor *) color;
+-(void)setTextColor:(UIColor *) color;
+
 - (CGFloat)yPositionWhenHidden:(BOOL)hidden;
 
 @end

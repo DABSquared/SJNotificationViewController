@@ -25,12 +25,28 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 @synthesize parentView, notificationPosition;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+-(id)init {
+    self = [super init];
     if (self) {
         // Custom initialization
 		showSpinner = NO;
+        self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(12, 11, 290, 21)];
+        [label setAutoresizingMask:(UIViewContentModeLeft | UIViewContentModeTop)];
+        [label setTextColor:[UIColor whiteColor]];
+        [label setBackgroundColor:[UIColor clearColor]];
+        label.shadowOffset = CGSizeMake(0, -1);
+        [label setAdjustsFontSizeToFitWidth:YES];
+        [label setMinimumFontSize:8];
+        [self.view addSubview:label];
+
+        spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(12, 12, 20, 20)];
+        [spinner setAutoresizingMask:(UIViewContentModeLeft | UIViewContentModeTop)];
+        [spinner setHidden:YES];
+        [spinner setHidesWhenStopped:YES];
+        [self.view addSubview:spinner];
+
 		[self setNotificationLevel:SJNotificationLevelMessage];
     }
     return self;
@@ -172,11 +188,17 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 			break;
 	}
 	
-	[UIView animateWithDuration:COLOR_FADE_DURATION
-					 animations:^ {
-						 [self.view setBackgroundColor:color];
-					 }
-	];
+	
+	[self.view setBackgroundColor:color];
+
+}
+
+-(void)setColor:(UIColor *) color {
+    [self.view setBackgroundColor:color];
+}
+
+-(void)setTextColor:(UIColor *) color {
+    [label setTextColor:color];
 }
 
 #pragma mark - Spinner
